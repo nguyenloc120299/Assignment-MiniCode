@@ -1,6 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "baseUrl": "./src",
+    "paths": {
+      "assets/*": ["./assets/*"],
+      "blockchain/*": ["./blockchain/*"],
+      "components/*": ["./components/*"],
+      "context/*": ["./context/*"],
+      "data/*": ["./data/*"],
+      "hooks/*": ["./hooks/*"],
+      "pages/*": ["./pages/*"],
+      "routes/*": ["./routes/*"],
+      "api/*": ["./api/*"],
+      "styles/*": ["./styles/*"],
+      "theme/*": ["./theme/*"],
+      "types/*": ["./types/*"],
+      "utils/*": ["./utils/*"],
+      "locale/*": ["./locale/*"]
+    },
+    "target": "ES5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -16,9 +33,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "baseUrl": "./",
-  "paths": {
-    "@/*": ["src/*"]
-  },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "src/**/*.spec.ts"]
 }
