@@ -1,6 +1,7 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
+import axios, { AxiosResponse } from "axios";
 
-const baseURL = "";
+const baseURL = "https://dummyjson.com";
+console.log("🚀 ~ file: request.ts:4 ~ baseURL:", process.env)
 
 const createInstance = () => {
   return axios.create({
@@ -9,6 +10,12 @@ const createInstance = () => {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
+  });
+};
+export const fetcher = (url: string) => {
+  const instance = createInstance();
+  instance.get(url).then((res: any) => {
+    return res;
   });
 };
 
