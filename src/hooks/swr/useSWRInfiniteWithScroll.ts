@@ -1,5 +1,6 @@
 import { fetcher } from "api/request";
-import { CONFIG_APP } from "config";
+import { useCallback } from "react";
+
 import useSWRInfinite from "swr/infinite";
 
 interface useSwrInfiniteWithScrollProps {
@@ -7,7 +8,6 @@ interface useSwrInfiniteWithScrollProps {
   getKeyUrl?: any;
   config?: any;
   formatKeyData?: string;
-  newEndpoint?: boolean;
 }
 
 const useSwrInfiniteWithScroll = ({
@@ -16,50 +16,46 @@ const useSwrInfiniteWithScroll = ({
   config,
   formatKeyData,
 }: useSwrInfiniteWithScrollProps) => {
-  const n = useSWRInfinite(
-    (index, previousData) => getKeyUrl(index, query, previousData),
+  const fetcherCallback = useCallback(
+    (index: any, previousData: any) => {
+      return getKeyUrl(index, query, previousData);
+    },
+    [getKeyUrl, formatKeyData, query]
+  );
+
+  const { data, error, size, setSize, isValidating, mutate } = useSWRInfinite(
+    fetcherCallback,
     fetcher,
     config
   );
 
-    console.log(n);
-    
-    
-//   const formatData = data
-//     ? data.map((item) => (formatKeyData ? item[formatKeyData] : item))
-//     : [];
-//   const dataShowing = formatData ? [].concat(...formatData) : [];
+  const formatData = data
+    ? data.map((item) => (formatKeyData ? item[formatKeyData] : item))
+    : [];
 
-//   const isLoadingInitialData = !data && !error;
-//   const isLoadingMore =
-//     isLoadingInitialData ||
-//     (size > 0 && data && typeof data[size - 1] === "undefined");
-//   // @ts-ignore
-//   const isEmpty = formatKeyData
-//     ? data?.[0]?.[formatKeyData]?.length === 0
-//     : data?.[0]?.length === 0;
-//   const isReachingEnd =
-//     isEmpty ||
-//     (data &&
-//       // @ts-ignore
-//       (formatKeyData
-//         ? data[data.length - 1]?.[formatKeyData]?.length
-//         : data[data.length - 1]?.length) <
-//         (query?.rowPerPage || CONFIG_APP.DEFAULT_LIMIT));
-//   const isRefreshing = isValidating && data && data.length === size;
+  const dataShowing = formatData ? [].concat(...formatData) : [];
 
-//   return {
-//     data,
-//     // dataShowing,
-//     // isLoadingMore,
-//     // isEmpty,
-//     // isReachingEnd,
-//     // isRefreshing,
-//     // setSize,
-//     // isLoadingInitialData,
-//     mutate,
-//     size,
-//  };
+  const isLoadingInitialData = !data && !error;
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === "undefined");
+  const isEmpty = formatKeyData
+    ? data?.[0]?.[formatKeyData]?.length === 0
+    : data?.[0]?.length === 0;
+
+  const isRefreshing = isValidating && data && data.length === size;
+
+  return {
+    data,
+    dataShowing,
+    isLoadingMore,
+    isEmpty,
+    isRefreshing,
+    setSize,
+    isLoadingInitialData,
+    mutate,
+    size,
+  };
 };
 
 export default useSwrInfiniteWithScroll;

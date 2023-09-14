@@ -5,6 +5,6 @@ export const useSwrInfiniteProducts = (query: any) => {
   return useSwrInfiniteWithScroll({
     getKeyUrl: getKeyUrlProducts,
     formatKeyData: "products",
-    query,
+    query
   });
 };

@@ -5,7 +5,7 @@ import { ConfigProvider, Spin, theme as a } from "antd";
 function App() {
   return (
     <ConfigProvider>
-      <div className="App">
+      <div className="App" id="scrollableDiv">
         <Router>
           <RenderRouter />
         </Router>
