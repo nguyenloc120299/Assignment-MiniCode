@@ -1,5 +1,5 @@
 import { fetcher } from "api/request";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 import useSWRInfinite from "swr/infinite";
 
@@ -17,16 +17,16 @@ const useSwrInfiniteWithScroll = ({
   formatKeyData,
 }: useSwrInfiniteWithScrollProps) => {
   const fetcherCallback = useCallback(
-    (index: number) => {
+    (index: number, previousPageData: any) => {
       return getKeyUrl(index, query);
     },
-    [getKeyUrl, formatKeyData, query]
+    []
   );
 
-  const { data, error, size, setSize, isValidating, mutate } = useSWRInfinite(
+  const { data, error, size, setSize, isValidating } = useSWRInfinite(
     fetcherCallback,
     fetcher,
-    config
+    { parallel: true }
   );
 
   const formatData = data
@@ -53,7 +53,7 @@ const useSwrInfiniteWithScroll = ({
     isRefreshing,
     setSize,
     isLoadingInitialData,
-    mutate,
+
     size,
   };
 };

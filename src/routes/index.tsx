@@ -1,7 +1,6 @@
 import Home from "pages/home";
 import type { RouteObject } from "react-router";
 import { useRoutes } from "react-router-dom";
-import Login from "../pages/login";
 import WrapperRouteComponent from "./WrapperRouteComponent";
 const routeList: RouteObject[] = [
   {

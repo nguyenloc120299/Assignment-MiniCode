@@ -12,17 +12,17 @@ const { Search } = Input;
 const Home = () => {
   const [textSearch, setTextSearch] = useState<string>("");
   const textSearchDebounce = useDebounce(textSearch, 500);
+  const [pageIndex, setPageIndex] = useState<number>(0);
   const {
     setSize: setSizeProducts,
     size: sizeProducts,
     dataShowing: listProducts,
     isLoadingInitialData,
-    isLoadingMore
+    isLoadingMore,
   } = useSwrInfiniteProducts({
     search: textSearchDebounce,
   });
 
-  
   const handleOnchangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setTextSearch(e.target.value);
   };
@@ -41,7 +41,9 @@ const Home = () => {
 
       <div>
         <InfiniteScroll
-          next={() => setSizeProducts(sizeProducts + 1)}
+          next={() => {
+            setSizeProducts(sizeProducts + 1);
+          }}
           hasMore
           loader={<LoadingScreen loading={isLoadingMore} />}
           dataLength={listProducts?.length}
