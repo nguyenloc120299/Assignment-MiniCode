@@ -20,7 +20,7 @@ const useSwrInfiniteWithScroll = ({
     (index: number, previousPageData: any) => {
       return getKeyUrl(index, query);
     },
-    []
+    [query, getKeyUrl]
   );
 
   const { data, error, size, setSize, isValidating } = useSWRInfinite(
