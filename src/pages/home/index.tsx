@@ -21,6 +21,8 @@ const Home = () => {
   } = useSwrInfiniteProducts({
     search: textSearchDebounce,
   });
+
+  
   const handleOnchangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setTextSearch(e.target.value);
   };
