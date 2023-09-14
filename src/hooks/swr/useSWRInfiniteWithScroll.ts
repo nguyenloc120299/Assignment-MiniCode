@@ -17,8 +17,8 @@ const useSwrInfiniteWithScroll = ({
   formatKeyData,
 }: useSwrInfiniteWithScrollProps) => {
   const fetcherCallback = useCallback(
-    (index: any, previousData: any) => {
-      return getKeyUrl(index, query, previousData);
+    (index: number) => {
+      return getKeyUrl(index, query);
     },
     [getKeyUrl, formatKeyData, query]
   );

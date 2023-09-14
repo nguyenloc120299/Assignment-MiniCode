@@ -50,7 +50,7 @@ const Home = () => {
         >
           <Row gutter={[16, 16]}>
             {listProducts.map((product: ProductType, index: number) => (
-              <Col span={6} key={index}>
+              <Col sm={12} md={6} key={index}>
                 <CardProduct
                   description={product.description}
                   image_url={product.images[0]}
